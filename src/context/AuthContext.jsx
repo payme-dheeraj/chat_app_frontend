@@ -79,11 +79,13 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       await authAPI.logout();
-      setUser(null);
-      return { success: true };
     } catch (error) {
-      return { success: false, message: 'Logout failed' };
+      console.error('Logout API error:', error);
+    } finally {
+      // Always clear user state, even if API fails
+      setUser(null);
     }
+    return { success: true };
   };
 
   const updateProfile = async (data) => {
