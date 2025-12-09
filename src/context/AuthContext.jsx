@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { authAPI } from '../services/api';
+import { authAPI, setAuthToken, getAuthToken } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -12,13 +12,25 @@ export function AuthProvider({ children }) {
   }, []);
 
   const checkAuth = async () => {
+    // Check if we have a token
+    const token = getAuthToken();
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    
     try {
       const response = await authAPI.checkAuth();
       if (response.data.authenticated) {
         setUser(response.data.user);
+      } else {
+        // Token is invalid, clear it
+        setAuthToken(null);
       }
     } catch (error) {
       console.error('Auth check failed:', error);
+      // Clear invalid token
+      setAuthToken(null);
     } finally {
       setLoading(false);
     }
@@ -28,6 +40,8 @@ export function AuthProvider({ children }) {
     try {
       const response = await authAPI.generateAnonymous();
       if (response.data.success) {
+        // Save token
+        setAuthToken(response.data.token);
         setUser(response.data.user);
         return { success: true };
       }
@@ -41,6 +55,8 @@ export function AuthProvider({ children }) {
     try {
       const response = await authAPI.login(username, password);
       if (response.data.success) {
+        // Save token
+        setAuthToken(response.data.token);
         setUser(response.data.user);
         return { success: true };
       }
@@ -54,6 +70,8 @@ export function AuthProvider({ children }) {
     try {
       const response = await authAPI.signup(username, password, mobileNumber, captchaToken);
       if (response.data.success) {
+        // Save token
+        setAuthToken(response.data.token);
         setUser(response.data.user);
         return { success: true };
       }
@@ -82,7 +100,8 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.error('Logout API error:', error);
     } finally {
-      // Always clear user state, even if API fails
+      // Always clear token and user state
+      setAuthToken(null);
       setUser(null);
     }
     return { success: true };
