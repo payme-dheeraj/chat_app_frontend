@@ -54,68 +54,68 @@ function ProfileScreen() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-2xl mx-auto px-4 py-4 sm:py-6">
       {/* Profile Card */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-4 sm:mb-6">
         {/* Cover */}
-        <div className="h-32 bg-gradient-to-r from-blue-500 to-indigo-600" />
+        <div className="h-24 sm:h-32 bg-gradient-to-r from-blue-500 to-indigo-600" />
         
         {/* Avatar & Info */}
-        <div className="px-6 pb-6">
-          <div className="flex flex-col sm:flex-row sm:items-end gap-4 -mt-12">
+        <div className="px-4 sm:px-6 pb-4 sm:pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4 -mt-10 sm:-mt-12">
             {/* Avatar */}
-            <div className="relative">
-              <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center text-white text-3xl font-bold border-4 border-white shadow-lg">
+            <div className="relative flex-shrink-0">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center text-white text-2xl sm:text-3xl font-bold border-4 border-white shadow-lg">
                 {user?.display_name?.charAt(0).toUpperCase()}
               </div>
               {editMode && (
-                <button className="absolute bottom-0 right-0 p-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition-colors">
-                  <Camera className="w-4 h-4" />
+                <button className="absolute bottom-0 right-0 p-1.5 sm:p-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition-colors active:scale-95">
+                  <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               )}
             </div>
 
             {/* Info */}
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               {editMode ? (
                 <input
                   type="text"
                   value={formData.display_name}
                   onChange={(e) => setFormData({ ...formData, display_name: e.target.value })}
-                  className="text-2xl font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="text-xl sm:text-2xl font-bold text-gray-900 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               ) : (
-                <h1 className="text-2xl font-bold text-gray-900">{user?.display_name}</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">{user?.display_name}</h1>
               )}
-              <p className="text-gray-500">@{user?.username}</p>
+              <p className="text-gray-500 text-sm sm:text-base truncate">@{user?.username}</p>
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto">
               {editMode ? (
                 <>
                   <button
                     onClick={() => setEditMode(false)}
-                    className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors"
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors active:scale-95"
                   >
                     <X className="w-4 h-4" />
-                    Cancel
+                    <span className="text-sm sm:text-base">Cancel</span>
                   </button>
                   <button
                     onClick={handleSaveProfile}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors"
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors active:scale-95"
                   >
                     <Save className="w-4 h-4" />
-                    Save
+                    <span className="text-sm sm:text-base">Save</span>
                   </button>
                 </>
               ) : (
                 <button
                   onClick={() => setEditMode(true)}
-                  className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors"
+                  className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors active:scale-95"
                 >
                   <Edit2 className="w-4 h-4" />
-                  Edit
+                  <span className="text-sm sm:text-base">Edit</span>
                 </button>
               )}
             </div>
@@ -137,98 +137,98 @@ function ProfileScreen() {
           </div>
 
           {/* Stats */}
-          <div className="flex gap-6 mt-4 pt-4 border-t border-gray-100">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{myPosts.length}</p>
-              <p className="text-sm text-gray-500">Posts</p>
+          <div className="flex gap-4 sm:gap-6 mt-4 pt-4 border-t border-gray-100">
+            <div className="text-center flex-1 sm:flex-none">
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{myPosts.length}</p>
+              <p className="text-xs sm:text-sm text-gray-500">Posts</p>
             </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="text-center flex-1 sm:flex-none">
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {user?.user_type === 'registered' ? 'Verified' : 'Anonymous'}
               </p>
-              <p className="text-sm text-gray-500">Account Type</p>
+              <p className="text-xs sm:text-sm text-gray-500">Account Type</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Account Details */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">Account Details</h2>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 mb-4 sm:mb-6">
+        <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Account Details</h2>
         
-        <div className="space-y-4">
-          <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-            <User className="w-5 h-5 text-gray-400" />
-            <div className="flex-1">
-              <p className="text-sm text-gray-500">Username</p>
-              <p className="font-medium text-gray-900">@{user?.username}</p>
+        <div className="space-y-3 sm:space-y-4">
+          <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
+            <User className="w-5 h-5 text-gray-400 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-500">Username</p>
+              <p className="font-medium text-gray-900 text-sm sm:text-base truncate">@{user?.username}</p>
             </div>
           </div>
 
           {user?.mobile_number && (
-            <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-              <Phone className="w-5 h-5 text-gray-400" />
-              <div className="flex-1">
-                <p className="text-sm text-gray-500">Mobile Number</p>
-                <p className="font-medium text-gray-900">{user.mobile_number}</p>
+            <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
+              <Phone className="w-5 h-5 text-gray-400 flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm text-gray-500">Mobile Number</p>
+                <p className="font-medium text-gray-900 text-sm sm:text-base">{user.mobile_number}</p>
               </div>
             </div>
           )}
 
-          <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-            <Mail className="w-5 h-5 text-gray-400" />
-            <div className="flex-1">
-              <p className="text-sm text-gray-500">Account Type</p>
-              <p className="font-medium text-gray-900 capitalize">{user?.user_type}</p>
+          <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-xl">
+            <Mail className="w-5 h-5 text-gray-400 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-gray-500">Account Type</p>
+              <p className="font-medium text-gray-900 capitalize text-sm sm:text-base">{user?.user_type}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Settings */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">Settings</h2>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 mb-4 sm:mb-6">
+        <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Settings</h2>
         
         <div className="space-y-2">
           {user?.user_type === 'registered' && (
             <button
               onClick={() => setShowPasswordModal(true)}
-              className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors text-left"
+              className="w-full flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl hover:bg-gray-50 transition-colors text-left active:scale-[0.98]"
             >
               <Lock className="w-5 h-5 text-gray-400" />
-              <span className="font-medium text-gray-700">Change Password</span>
+              <span className="font-medium text-gray-700 text-sm sm:text-base">Change Password</span>
             </button>
           )}
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-red-50 transition-colors text-left text-red-600"
+            className="w-full flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl hover:bg-red-50 transition-colors text-left text-red-600 active:scale-[0.98]"
           >
             <LogOut className="w-5 h-5" />
-            <span className="font-medium">Logout</span>
+            <span className="font-medium text-sm sm:text-base">Logout</span>
           </button>
         </div>
       </div>
 
       {/* My Posts */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">My Posts</h2>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">My Posts</h2>
         
         {loading ? (
-          <div className="text-center text-gray-500 py-8">Loading...</div>
+          <div className="text-center text-gray-500 py-6 sm:py-8 text-sm sm:text-base">Loading...</div>
         ) : myPosts.length === 0 ? (
-          <div className="text-center text-gray-500 py-8">No posts yet</div>
+          <div className="text-center text-gray-500 py-6 sm:py-8 text-sm sm:text-base">No posts yet</div>
         ) : (
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
             {myPosts.map(post => (
-              <div key={post.id} className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
+              <div key={post.id} className="aspect-square bg-gray-100 rounded-lg sm:rounded-xl overflow-hidden">
                 {post.post_type === 'image' && post.image ? (
                   <img src={post.image} alt="" className="w-full h-full object-cover" />
                 ) : post.post_type === 'video' && post.video ? (
-                  <video src={post.video} className="w-full h-full object-cover" />
+                  <video src={post.video} className="w-full h-full object-cover" playsInline />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center p-2 text-xs text-gray-500 text-center">
-                    {post.content?.slice(0, 50) || post.post_type}
+                  <div className="w-full h-full flex items-center justify-center p-1.5 sm:p-2 text-[10px] sm:text-xs text-gray-500 text-center leading-tight">
+                    {post.content?.slice(0, 40) || post.post_type}
                   </div>
                 )}
               </div>

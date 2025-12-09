@@ -67,13 +67,13 @@ function FeedScreen() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-2xl mx-auto px-4 py-4 sm:py-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Feed</h1>
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Feed</h1>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl font-medium hover:from-blue-600 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/20"
+          className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl font-medium hover:from-blue-600 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/20"
         >
           <Plus className="w-5 h-5" />
           Create Post
@@ -128,9 +128,9 @@ function FeedScreen() {
       {/* Floating Create Button (Mobile) */}
       <button
         onClick={() => setShowCreateModal(true)}
-        className="md:hidden fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full shadow-lg shadow-blue-500/30 flex items-center justify-center z-40"
+        className="sm:hidden fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full shadow-lg shadow-blue-500/30 flex items-center justify-center z-40 active:scale-95 transition-transform"
       >
-        <Plus className="w-6 h-6" />
+        <Plus className="w-7 h-7" />
       </button>
 
       {/* Create Post Modal */}
@@ -161,39 +161,40 @@ function PostCard({ post, onLike, onVote, onComment, formatTime }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden animate-fadeIn">
       {/* Header */}
-      <div className="p-4 flex items-center gap-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white font-semibold">
+      <div className="p-3 sm:p-4 flex items-center gap-3">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
           {post.author.display_name?.charAt(0).toUpperCase()}
         </div>
-        <div className="flex-1">
-          <p className="font-semibold text-gray-900">{post.author.display_name}</p>
-          <p className="text-sm text-gray-500">@{post.author.username} · {formatTime(post.created_at)}</p>
+        <div className="flex-1 min-w-0">
+          <p className="font-semibold text-gray-900 truncate">{post.author.display_name}</p>
+          <p className="text-sm text-gray-500 truncate">@{post.author.username} · {formatTime(post.created_at)}</p>
         </div>
       </div>
 
       {/* Content */}
       {post.content && (
-        <p className="px-4 pb-3 text-gray-800">{post.content}</p>
+        <p className="px-3 sm:px-4 pb-3 text-gray-800 text-sm sm:text-base">{post.content}</p>
       )}
 
       {/* Image */}
       {post.post_type === 'image' && post.image && (
-        <div className="px-4 pb-4">
+        <div className="px-3 sm:px-4 pb-3 sm:pb-4">
           <img
             src={post.image}
             alt="Post"
-            className="w-full rounded-xl object-cover max-h-96"
+            className="w-full rounded-xl object-cover max-h-80 sm:max-h-96"
           />
         </div>
       )}
 
       {/* Video */}
       {post.post_type === 'video' && post.video && (
-        <div className="px-4 pb-4">
+        <div className="px-3 sm:px-4 pb-3 sm:pb-4">
           <video
             src={post.video}
             controls
-            className="w-full rounded-xl max-h-96"
+            playsInline
+            className="w-full rounded-xl max-h-80 sm:max-h-96"
           />
         </div>
       )}
@@ -244,25 +245,26 @@ function PostCard({ post, onLike, onVote, onComment, formatTime }) {
       )}
 
       {/* Actions */}
-      <div className="px-4 py-3 border-t border-gray-100 flex items-center gap-6">
+      <div className="px-3 sm:px-4 py-3 border-t border-gray-100 flex items-center justify-around sm:justify-start sm:gap-6">
         <button
           onClick={onLike}
-          className={`flex items-center gap-2 transition-colors ${
+          className={`flex items-center gap-1.5 sm:gap-2 transition-colors active:scale-95 p-2 -m-2 ${
             post.is_liked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
           }`}
         >
-          <Heart className={`w-5 h-5 ${post.is_liked ? 'fill-current' : ''}`} />
+          <Heart className={`w-5 h-5 sm:w-5 sm:h-5 ${post.is_liked ? 'fill-current' : ''}`} />
           <span className="text-sm font-medium">{post.likes_count}</span>
         </button>
         <button
           onClick={onComment}
-          className="flex items-center gap-2 text-gray-500 hover:text-blue-500 transition-colors"
+          className="flex items-center gap-1.5 sm:gap-2 text-gray-500 hover:text-blue-500 transition-colors active:scale-95 p-2 -m-2"
         >
           <MessageCircle className="w-5 h-5" />
           <span className="text-sm font-medium">{post.comments_count}</span>
         </button>
-        <button className="flex items-center gap-2 text-gray-500 hover:text-green-500 transition-colors">
+        <button className="flex items-center gap-1.5 sm:gap-2 text-gray-500 hover:text-green-500 transition-colors active:scale-95 p-2 -m-2">
           <Share2 className="w-5 h-5" />
+          <span className="text-sm font-medium hidden sm:inline">Share</span>
         </button>
       </div>
     </div>
@@ -356,14 +358,14 @@ function CreatePostModal({ onClose, onPostCreated }) {
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto animate-fadeIn">
+    <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 sm:p-4">
+      <div className="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-lg max-h-[90vh] overflow-y-auto animate-slideUp sm:animate-fadeIn">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900">Create Post</h2>
+        <div className="flex items-center justify-between p-4 border-b border-gray-100 sticky top-0 bg-white z-10">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Create Post</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors active:scale-95"
           >
             <X className="w-5 h-5 text-gray-500" />
           </button>

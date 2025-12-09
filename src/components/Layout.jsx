@@ -90,7 +90,7 @@ function Layout({ children }) {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-bottom">
         <div className="flex items-center justify-around h-16">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -99,15 +99,25 @@ function Layout({ children }) {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex flex-col items-center justify-center w-full h-full transition-all ${
+                className={`flex flex-col items-center justify-center flex-1 h-full py-2 transition-all active:scale-95 ${
                   isActive ? 'text-blue-600' : 'text-gray-500'
                 }`}
               >
-                <Icon className="w-6 h-6" />
-                <span className="text-xs mt-1">{item.label}</span>
+                <Icon className={`w-6 h-6 ${isActive ? 'scale-110' : ''} transition-transform`} />
+                <span className={`text-xs mt-1 ${isActive ? 'font-medium' : ''}`}>{item.label}</span>
               </Link>
             );
           })}
+          {/* Login button for anonymous users in mobile nav */}
+          {isAnonymous && (
+            <Link
+              to="/login"
+              className="flex flex-col items-center justify-center flex-1 h-full py-2 transition-all active:scale-95 text-blue-600"
+            >
+              <User className="w-6 h-6" />
+              <span className="text-xs mt-1 font-medium">Login</span>
+            </Link>
+          )}
         </div>
       </nav>
     </div>

@@ -36,32 +36,32 @@ function LoginScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4 safe-bottom">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full opacity-30 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-200 rounded-full opacity-30 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-60 sm:w-80 h-60 sm:h-80 bg-blue-200 rounded-full opacity-30 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-60 sm:w-80 h-60 sm:h-80 bg-purple-200 rounded-full opacity-30 blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
         {/* Back Button */}
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 sm:mb-6 transition-colors active:scale-95 p-2 -ml-2"
         >
           <ArrowLeft className="w-5 h-5" />
-          Back
+          <span className="text-sm sm:text-base">Back</span>
         </button>
 
         {/* Login Card */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl p-8 animate-fadeIn">
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 animate-fadeIn">
           {/* Logo */}
-          <div className="flex flex-col items-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-blue-500/30">
-              <MessageCircle className="w-8 h-8 text-white" />
+          <div className="flex flex-col items-center mb-6 sm:mb-8">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 shadow-lg shadow-blue-500/30">
+              <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
-            <p className="text-gray-500 mt-1">Login to your account</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Welcome Back</h1>
+            <p className="text-gray-500 mt-1 text-sm sm:text-base">Login to your account</p>
           </div>
 
           {/* Error Message */}
